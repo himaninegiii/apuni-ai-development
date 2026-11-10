@@ -1,0 +1,313 @@
+[
+  {
+    "serviceId": "income-certificate",
+    "serviceName": "Income Certificate (आय प्रमाण पत्र)",
+    "department": "Revenue Department, Government of Uttarakhand",
+    "description": "Statutory revenue certificate certifying total annual household income across all legal sources for admissions, government scholarships, state subsidies, and fee remissions.",
+    "eligibility": [
+      "Permanent resident of Uttarakhand or residing lawfully in the state with verifiable economic activity.",
+      "Head of family or applicant declaring lawful family income with supporting revenue evidence.",
+      "No duplicate active income certificate issued within the same financial year."
+    ],
+    "requiredDocuments": [
+      {
+        "name": "Aadhaar Card / Voter ID / Photo ID",
+        "isMandatory": true,
+        "details": "Self-attested identity proof with local Uttarakhand address.",
+        "issuingAuthority": "UIDAI / Election Commission of India",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Family Register (Parivar Register) Excerpt",
+        "isMandatory": true,
+        "details": "Certified copy issued by Gram Panchayat Vikas Adhikari (VDO) in rural areas or Nagar Palika/Nigam tax record in urban areas.",
+        "issuingAuthority": "Gram Panchayat Vikas Adhikari (VDO) / Nagar Palika",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Self-Declaration / Income Affidavit",
+        "isMandatory": true,
+        "details": "Prescribed affidavit on stamp paper or standard e-District self-declaration format declaring annual income.",
+        "issuingAuthority": "Notary Public / Executive Magistrate / Self-Declaration",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Recent Passport Size Photograph",
+        "isMandatory": true,
+        "details": "Color photograph with light/white background taken within recent 3 months.",
+        "issuingAuthority": "Applicant",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Salary Slip / Employer Certificate / ITR",
+        "isMandatory": false,
+        "details": "Mandatory only if any family member is employed in government/private sector or files income tax.",
+        "issuingAuthority": "Employer / Income Tax Department",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Land Record (Khatauni) / Agricultural Income Proof",
+        "isMandatory": false,
+        "details": "Excerpts from Uttarakhand Bhulekh portal if family owns agricultural land.",
+        "issuingAuthority": "Revenue Department (Bhulekh Uttarakhand)",
+        "verificationStatus": "verified"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Registration on Apuni Sarkar Portal",
+        "description": "Create a citizen profile on eservices.uk.gov.in using mobile number and Aadhaar OTP verification.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 2,
+        "title": "Select Service & Fill Family Income Details",
+        "description": "Choose Revenue Department -> Income Certificate. Enter district, tehsil, village/ward, and family income breakdown.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 3,
+        "title": "Upload Scanned Documents",
+        "description": "Upload scanned copies of Parivar register excerpt, income affidavit, identity proof, and recent photograph.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 4,
+        "title": "Pay Portal Fee & Obtain Application Receipt",
+        "description": "Pay statutory user fee online and note down the application reference tracking number (UK-REV-XXXX).",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 5,
+        "title": "Patwari Inquiry & Tehsildar Approval",
+        "description": "Lekhpal/Patwari conducts field revenue inquiry; Tehsildar issues digitally signed QR-coded certificate.",
+        "verificationStatus": "verified"
+      }
+    ],
+    "fees": "₹30 (Direct Online Portal submission) / ₹50 (Common Service Center CSC user fee)",
+    "processingTime": "15 working days under Uttarakhand Right to Service (RTS) Act",
+    "responsibleAuthority": "Tehsildar / Sub-Divisional Magistrate (SDM), Revenue Department",
+    "officialUrl": "https://eservices.uk.gov.in",
+    "sources": [
+      {
+        "id": "src-inc-rts",
+        "sourceTitle": "Uttarakhand Right to Service (RTS) Commission Service Delivery Schedule",
+        "sourceUrl": "https://eservices.uk.gov.in",
+        "governmentDepartment": "Uttarakhand Right to Service Commission & Revenue Department",
+        "informationSupported": "Statutory 15-day timeline, Tehsildar designated authority, mandatory Lekhpal inquiry",
+        "verificationDate": "2026-03-01",
+        "verificationStatus": "verified",
+        "officialReferenceNote": "Notified under Uttarakhand Right to Service Act Section 3"
+      },
+      {
+        "id": "src-inc-apuni",
+        "sourceTitle": "Apuni Sarkar Uttarakhand Citizen Services Portal (ITDA)",
+        "sourceUrl": "https://eservices.uk.gov.in",
+        "governmentDepartment": "Information Technology Development Agency (ITDA), Uttarakhand",
+        "informationSupported": "Online application procedure, statutory CSC fees (₹30-₹50), mandatory document checklist",
+        "verificationDate": "2026-03-01",
+        "verificationStatus": "verified",
+        "officialReferenceNote": "e-District Uttarakhand User Service Schedule"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastVerified": "2026-03-01"
+  },
+  {
+    "serviceId": "caste-certificate",
+    "serviceName": "Caste Certificate (SC / ST / OBC - जाति प्रमाण पत्र)",
+    "department": "Revenue Department, Government of Uttarakhand",
+    "description": "Statutory certificate issued by the Revenue Department authenticating Scheduled Caste (SC), Scheduled Tribe (ST), or Other Backward Class (OBC) status for constitutional reservations, educational fee concessions, and government recruitment.",
+    "eligibility": [
+      "Applicant must belong to an officially notified SC, ST, or OBC community in Uttarakhand.",
+      "Must possess paternal ancestral revenue records proving continuous residence in Uttarakhand prior to the notified state cutoff date.",
+      "For OBC category, household annual income must be within the Non-Creamy Layer (NCL) ceiling."
+    ],
+    "requiredDocuments": [
+      {
+        "name": "Aadhaar Card / Photo ID of Applicant",
+        "isMandatory": true,
+        "details": "Self-attested identity proof with verified address.",
+        "issuingAuthority": "UIDAI / Election Commission of India",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Father’s Caste Certificate / Ancestral Land Records",
+        "isMandatory": true,
+        "details": "Paternal lineage proof: father's caste certificate, old ancestral Khatauni specifying caste, or ancestral school transfer certificate.",
+        "issuingAuthority": "Revenue Department / State Education Department",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Uttarakhand Domicile / Permanent Residence Certificate (Mool Niwas)",
+        "isMandatory": true,
+        "details": "Proof of permanent residential connection with Uttarakhand.",
+        "issuingAuthority": "Tehsildar / Sub-Divisional Magistrate",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Family Register Excerpt (Parivar Register)",
+        "isMandatory": true,
+        "details": "Gram Panchayat or municipal body family register copy establishing genealogical link to father.",
+        "issuingAuthority": "Gram Panchayat Vikas Adhikari (VDO) / Nagar Palika",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Self-Declaration / Caste & Lineage Affidavit",
+        "isMandatory": true,
+        "details": "Affidavit affirming caste denomination, lineage veracity, and non-creamy layer criteria for OBC.",
+        "issuingAuthority": "Notary Public / Self-Declaration Format",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Recent Passport Size Photograph",
+        "isMandatory": true,
+        "details": "Recent color photograph of applicant.",
+        "issuingAuthority": "Applicant",
+        "verificationStatus": "verified"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Log in to Apuni Sarkar",
+        "description": "Access eservices.uk.gov.in using citizen credentials.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 2,
+        "title": "Select Category & Ancestral Lineage Details",
+        "description": "Choose SC, ST, or OBC category. Fill in sub-caste denomination, father's particulars, and ancestral village.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 3,
+        "title": "Upload Paternal Proof & Domicile",
+        "description": "Attach scanned father's caste proof or old Khatauni, Parivar register excerpt, residence proof, and photo.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 4,
+        "title": "Fee Payment & Reference Generation",
+        "description": "Pay statutory portal fee and retain the acknowledgement slip with reference number.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 5,
+        "title": "Patwari Verification & Tehsildar/SDM Issuance",
+        "description": "Revenue Patwari conducts field inquiry; Tehsildar or Sub-Divisional Magistrate issues digitally signed certificate.",
+        "verificationStatus": "verified"
+      }
+    ],
+    "fees": "₹30 (Portal direct) / ₹50 (CSC user charge)",
+    "processingTime": "15 working days under Uttarakhand Right to Service (RTS) Act",
+    "responsibleAuthority": "Tehsildar / Sub-Divisional Magistrate (SDM), Revenue Department",
+    "officialUrl": "https://eservices.uk.gov.in",
+    "sources": [
+      {
+        "id": "src-cst-rts",
+        "sourceTitle": "Uttarakhand Right to Service (RTS) Commission - Revenue Services Schedule",
+        "sourceUrl": "https://eservices.uk.gov.in",
+        "governmentDepartment": "Revenue Department & Social Welfare Department, Uttarakhand",
+        "informationSupported": "15 working day statutory delivery period, SDM/Tehsildar authority, lineage verification",
+        "verificationDate": "2026-03-01",
+        "verificationStatus": "verified",
+        "officialReferenceNote": "Uttarakhand Right to Service Act statutory notifications"
+      },
+      {
+        "id": "src-cst-apuni",
+        "sourceTitle": "Apuni Sarkar Citizen Services e-District Portal",
+        "sourceUrl": "https://eservices.uk.gov.in",
+        "governmentDepartment": "Information Technology Development Agency (ITDA) & Revenue Department",
+        "informationSupported": "Digital application workflow, statutory fee schedule, required document checklist",
+        "verificationDate": "2026-03-01",
+        "verificationStatus": "verified",
+        "officialReferenceNote": "Apuni Sarkar Revenue Services Catalog"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastVerified": "2026-03-01"
+  },
+  {
+    "serviceId": "parivar-register-copy",
+    "serviceName": "Family Register Copy (परिवार रजिस्टर की नकल / Parivar Register Nakal)",
+    "department": "Panchayati Raj Department, Government of Uttarakhand",
+    "description": "Certified excerpt of the official Gram Panchayat Family Register (कुटुंब रजिस्टर / फॉर्म 2) detailing family head, living members, familial relationships, dates of birth, and house numbers. Essential foundational proof of family relationship and local residence for income, caste, and domicile certificates in Uttarakhand.",
+    "eligibility": [
+      "Family must be registered in the Gram Panchayat register (Kutumb Register) of the respective village in Uttarakhand.",
+      "Applicant must be a listed family member, head of family, or authorized representative."
+    ],
+    "requiredDocuments": [
+      {
+        "name": "Applicant's Aadhaar Card / Voter ID (Photo ID)",
+        "isMandatory": true,
+        "details": "Self-attested identity proof.",
+        "issuingAuthority": "UIDAI / Election Commission of India",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "Written Application Form / Plain Paper Request",
+        "isMandatory": true,
+        "details": "Application addressed to Gram Panchayat Vikas Adhikari (VDO) or online form on Apuni Sarkar.",
+        "issuingAuthority": "Applicant",
+        "verificationStatus": "verified"
+      },
+      {
+        "name": "House Number / Gram Sabha Ward Details",
+        "isMandatory": false,
+        "details": "Village name, Majra, and house number to help locate the family register volume.",
+        "issuingAuthority": "Gram Panchayat Records",
+        "verificationStatus": "verified"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Submission of Request (Offline or Online)",
+        "description": "Offline: Submit written request to Gram Vikas Adhikari (VDO / Panchayat Secretary) at the Gram Panchayat office. Online: Log in to Apuni Sarkar (eservices.uk.gov.in) -> Panchayati Raj -> Copy of Family Register.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 2,
+        "title": "Register Volume Verification",
+        "description": "Gram Vikas Adhikari checks the official physical Kutumb Register (Form 2) or e-Panchayat digital register volume for the specified Gram Sabha and family head.",
+        "verificationStatus": "verified"
+      },
+      {
+        "step": 3,
+        "title": "Issuance of Certified Excerpt",
+        "description": "Gram Vikas Adhikari prepares and signs the certified excerpt bearing official seal and register page/serial number.",
+        "verificationStatus": "verified"
+      }
+    ],
+    "fees": null,
+    "processingTime": null,
+    "responsibleAuthority": "Gram Vikas Adhikari (VDO) / Panchayat Secretary, Panchayati Raj Department",
+    "officialUrl": "https://eservices.uk.gov.in",
+    "sources": [
+      {
+        "id": "src-pr-panchayat",
+        "sourceTitle": "Directorate of Panchayati Raj, Uttarakhand - Gram Panchayat Manual",
+        "sourceUrl": "https://panchayat.uk.gov.in",
+        "governmentDepartment": "Panchayati Raj Department, Government of Uttarakhand",
+        "informationSupported": "Gram Vikas Adhikari (VDO) issuing authority, Kutumb Register (Form 2) statutory role, eligibility and identity proof requirements",
+        "verificationDate": "2026-03-01",
+        "verificationStatus": "verified",
+        "officialReferenceNote": "Uttarakhand Panchayati Raj Act & Rules (Maintenance of Family Registers)"
+      },
+      {
+        "id": "src-pr-pending-fees-time",
+        "sourceTitle": "Uttarakhand Panchayati Raj Service Standards (Pending Gazette Verification)",
+        "sourceUrl": "https://eservices.uk.gov.in",
+        "governmentDepartment": "Panchayati Raj Department & Right to Service Commission",
+        "informationSupported": "Statutory fees and offline archive retrieval timeline pending formal statewide gazette notification. Apuni AI flags these fields as unverified/pending.",
+        "verificationDate": null,
+        "verificationStatus": "pending",
+        "officialReferenceNote": "Departmental user charge order awaiting centralized notification"
+      }
+    ],
+    "verificationStatus": "pending",
+    "lastVerified": "2026-03-01"
+  }
+]

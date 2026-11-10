@@ -1,0 +1,10 @@
+{
+  "name": " Apuni AI – Development",
+  "description": "Citizen-assistance interface simplifying Uttarakhand government services, document checklists, step-by-step application guidance, and AI voice support.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
