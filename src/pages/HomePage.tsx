@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { servicesData } from '../data/servicesData';
 import {
@@ -23,6 +23,7 @@ import {
 
 export const HomePage: React.FC = () => {
   const { t, language, navigateTo } = useApp();
+  const [heroImgError, setHeroImgError] = useState(false);
 
   const getServiceIcon = (name: string) => {
     switch (name) {
@@ -95,25 +96,56 @@ export const HomePage: React.FC = () => {
 
             {/* Right Column: Hero Visual - Authentic Uttarakhand Citizens */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-slate-900 aspect-video lg:aspect-4/3">
-                <img
-                  src="/src/assets/images/uttarakhand_citizens_hero_1794332994377.jpg"
-                  alt="Real citizens of Uttarakhand - elder in traditional Pahadi cap, woman in authentic Pahadi attire and young citizen in Himalayan village"
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex items-end p-5">
-                  <div className="text-white space-y-1">
-                    <span className="text-[11px] font-bold text-[#F29B38] uppercase tracking-wider">
-                      {language === 'en' ? 'Empowering Every Citizen' : 'उत्तराखंड के हर नागरिक के साथ'}
-                    </span>
-                    <p className="text-xs sm:text-sm text-slate-200 leading-snug">
-                      {language === 'en'
-                        ? 'Built for the people of Uttarakhand, simplifying complex certificates and social benefits into easy everyday language.'
-                        : 'उत्तराखंड के जन-सामान्य हेतु सरल, सुलभ और विश्वसनीय शासकीय सेवा मार्गदर्शन।'}
-                    </p>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-slate-900 aspect-video lg:aspect-4/3 flex items-center justify-center">
+                {!heroImgError ? (
+                  <img
+                    src="/images/uttarakhand_citizens_hero.jpg"
+                    alt="Real citizens of Uttarakhand - elder in traditional Pahadi cap, woman in authentic Pahadi attire and young citizen in Himalayan village"
+                    className="w-full h-full object-cover transition-opacity duration-300"
+                    onError={() => setHeroImgError(true)}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-[#142B4A] via-[#1D3B63] to-[#0D1C30] p-6 flex flex-col justify-between relative overflow-hidden">
+                    <div className="absolute -right-8 -bottom-8 w-48 h-48 rounded-full bg-[#F29B38]/10 blur-2xl pointer-events-none" />
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-[#F29B38]" />
+                      <span className="text-xs font-semibold text-[#F29B38] uppercase tracking-wider">
+                        {language === 'en' ? 'Citizen Assistance Platform' : 'नागरिक सेवा मंच'}
+                      </span>
+                    </div>
+                    <div className="space-y-2 my-auto py-4">
+                      <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-[#F29B38] mb-3 border border-white/15">
+                        <Users className="w-6 h-6" />
+                      </div>
+                      <h3 className="text-lg sm:text-xl font-bold text-white">
+                        {language === 'en' ? 'Uttarakhand Citizen Services' : 'उत्तराखंड नागरिक सेवाएं'}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                        {language === 'en'
+                          ? 'Empowering citizens across all 13 districts with direct, verified access to government certificates and public welfare schemes.'
+                          : 'सभी 13 जनपदों के नागरिकों हेतु प्रमाण पत्र, दस्तावेज चेकलिस्ट एवं पारदर्शी शासकीय मार्गदर्शन।'}
+                      </p>
+                    </div>
+                    <div className="text-[11px] text-sky-200/70 border-t border-white/10 pt-2 flex items-center justify-between">
+                      <span>Apuni AI</span>
+                      <span>eservices.uk.gov.in</span>
+                    </div>
                   </div>
-                </div>
+                )}
+                {!heroImgError && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex items-end p-5 pointer-events-none">
+                    <div className="text-white space-y-1">
+                      <span className="text-[11px] font-bold text-[#F29B38] uppercase tracking-wider">
+                        {language === 'en' ? 'Empowering Every Citizen' : 'उत्तराखंड के हर नागरिक के साथ'}
+                      </span>
+                      <p className="text-xs sm:text-sm text-slate-200 leading-snug">
+                        {language === 'en'
+                          ? 'Built for the people of Uttarakhand, simplifying complex certificates and social benefits into easy everyday language.'
+                          : 'उत्तराखंड के जन-सामान्य हेतु सरल, सुलभ और विश्वसनीय शासकीय सेवा मार्गदर्शन।'}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
