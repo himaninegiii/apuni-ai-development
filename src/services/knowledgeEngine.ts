@@ -159,10 +159,20 @@ export function analyzeFieldVerification(service: VerifiedGovernmentService): Fi
     processingTimeNote = `Unverified processing time: ${service.processingTime} (Requires verification)`;
   }
 
+  // Derive overall verification status:
+  // If ANY field is missing/null, or if any source is pending/unverified, status CANNOT be 'verified'.
+  const allSourcesVerified = service.sources.length > 0 && service.sources.every(s => s.verificationStatus === 'verified');
+  let computedOverallStatus: VerificationStatus = service.verificationStatus;
+  if (missingOrNullFields.length > 0 || unverifiedFields.length > 0 || !allSourcesVerified) {
+    if (service.verificationStatus === 'verified') {
+      computedOverallStatus = 'pending';
+    }
+  }
+
   return {
     serviceId: service.serviceId,
     serviceName: service.serviceName,
-    overallStatus: service.verificationStatus,
+    overallStatus: computedOverallStatus,
     lastVerified: service.lastVerified,
     verifiedFields,
     unverifiedFields,
@@ -342,6 +352,19 @@ export function retrieveRelevantService(
       'parivar', 'kutumb', 'परिवार', 'कुटुंब', 'family register', 'nakal', 'kutumb register',
       'parivar register', 'vdo', 'gram vikas adhikari', 'panchayat secretary', 'form 2', 'gram sabha'
     ],
+    'domicile-certificate': [
+      'domicile', 'niwas', 'mool niwas', 'sthai niwas', 'स्थायी निवास', 'मूल निवास', 'residence certificate',
+      'uttarakhand domicile', '15 years', 'parmanent resident'
+    ],
+    'birth-certificate': [
+      'birth', 'janam', 'जन्म', 'birth certificate', 'janam praman', 'crsorgi', 'newborn', '21 days'
+    ],
+    'death-certificate': [
+      'death', 'mrityu', 'मृत्यु', 'death certificate', 'mrityu praman', 'cremation ground', 'post-mortem'
+    ],
+    'pension-services': [
+      'pension', 'पेंशन', 'old age', 'vridha', 'vridhavastha', 'widow', 'vidhwa', 'divyang', 'disability pension', 'ssp.uk.gov.in'
+    ],
   };
 
   // Check specific fee inquiry intent
@@ -428,7 +451,12 @@ export function retrieveRelevantService(
  */
 export function buildGroundingPromptSection(retrieval: ServiceRetrievalResult): string {
   if (!retrieval.matchedService) {
-    return `RETRIEVAL STATUS: No single specific service identified. Rely on verified Uttarakhand public knowledge. If information is not known, tell the citizen to check eservices.uk.gov.in.`;
+    return `RETRIEVAL STATUS: UNVERIFIED / NO MATCHED SERVICE IN GOVERNMENT KNOWLEDGE BASE.
+CRITICAL INSTRUCTION:
+No verified service record matches this query in the central government knowledge base.
+You MUST state clearly and verbatim: "This information has not yet been verified from an official source." (In Hindi: "यह जानकारी अभी तक किसी आधिकारिक स्रोत से सत्यापित नहीं हुई है।")
+Do NOT guess or invent requirements, fees, documents, or procedures.
+Recommend the citizen check the official Uttarakhand e-Services portal at https://eservices.uk.gov.in or contact the relevant government department or CM Helpline 1905.`;
   }
 
   const s = retrieval.matchedService;
@@ -460,17 +488,23 @@ Provide clear, actionable steps on how they can obtain their ${retrieval.missing
   let feeDirective = '';
   if (s.fees === null) {
     feeDirective = `FEES: NULL (UNAVAILABLE / PENDING VERIFICATION).
-CRITICAL RULE: Official fees for this service are NOT currently published or verified in the state gazette. You MUST explicitly state that fee details are currently pending official departmental verification and that you will NOT guess or invent fees. Advise the citizen to check with the issuing officer or CSC.`;
+CRITICAL MANDATORY RULE:
+Official fee information for this service has NOT yet been verified from an official government gazette or schedule.
+You MUST explicitly say: "This information has not yet been verified from an official source." (In Hindi: "यह जानकारी अभी तक किसी आधिकारिक स्रोत से सत्यापित नहीं हुई है।")
+NEVER invent or assume application fees (do not guess ₹10, ₹30, ₹50, etc.). Recommend checking https://eservices.uk.gov.in or inquiring at the local Tehsil / CSC.`;
   } else {
-    feeDirective = `FEES: ${s.fees} [VERIFIED]`;
+    feeDirective = `FEES: ${s.fees} [EXPLICITLY VERIFIED FROM OFFICIAL DEPARTMENTAL NOTIFICATION]`;
   }
 
   let timeDirective = '';
   if (s.processingTime === null) {
     timeDirective = `PROCESSING TIME: NULL (UNVERIFIED / PENDING VERIFICATION).
-CRITICAL RULE: Official processing timeframe is NOT yet standardized or verified under the RTS schedule for this specific mode. You MUST explicitly state that the timeframe is pending official departmental verification. NEVER guess or invent any number of days.`;
+CRITICAL MANDATORY RULE:
+The official processing timeframe has NOT yet been verified from official Right to Service (RTS) notifications for this mode.
+You MUST explicitly say: "This information has not yet been verified from an official source." (In Hindi: "यह जानकारी अभी तक किसी आधिकारिक स्रोत से सत्यापित नहीं हुई है।")
+NEVER invent any number of days or timeline. Recommend checking https://eservices.uk.gov.in or contacting the department.`;
   } else {
-    timeDirective = `PROCESSING TIME: ${s.processingTime} [VERIFIED UNDER UTTARAKHAND RTS ACT]`;
+    timeDirective = `PROCESSING TIME: ${s.processingTime} [EXPLICITLY VERIFIED UNDER UTTARAKHAND RTS ACT]`;
   }
 
   return `
@@ -480,8 +514,8 @@ NAME: ${s.serviceName}
 DEPARTMENT: ${s.department}
 RESPONSIBLE AUTHORITY: ${s.responsibleAuthority}
 OFFICIAL PORTAL: ${s.officialUrl}
-OVERALL VERIFICATION STATUS: ${s.verificationStatus.toUpperCase()}
-LAST VERIFIED: ${s.lastVerified || 'Pending'}
+OVERALL VERIFICATION STATUS: ${report?.overallStatus.toUpperCase() || s.verificationStatus.toUpperCase()}
+LAST VERIFIED: ${s.lastVerified || 'Pending verification'}
 ${feeDirective}
 ${timeDirective}
 
@@ -494,10 +528,10 @@ ${docsFormatted}
 VERIFIED APPLICATION STEPS:
 ${stepsFormatted}
 
-OFFICIAL SOURCES SUPPORTING THIS DATA:
+OFFICIAL SOURCES SUPPORTING THIS DATA (Present these exact sources):
 ${sourcesFormatted}
 
-FIELD VERIFICATION REPORT:
+FIELD VERIFICATION BREAKDOWN:
 - Verified fields: ${report?.verifiedFields.join(', ') || 'None'}
 - Unverified/Partial fields: ${report?.unverifiedFields.join(', ') || 'None'}
 - Null/Missing fields: ${report?.missingOrNullFields.join(', ') || 'None'}

@@ -521,43 +521,55 @@ export const AssistantPage: React.FC = () => {
                     <>
                       {renderFormattedText(msg.text)}
 
-                      {/* Compact Information-Source Section (Section 6) */}
+                      {/* Compact Information-Source Section (Section 6 & Verification Hardening) */}
                       {((msg.sources && msg.sources.length > 0) || msg.retrievedService) && (
-                        <div className="mt-3 pt-3 border-t border-slate-200/80 space-y-2 bg-slate-50/70 -mx-1 p-2.5 rounded-lg">
-                          <div className="flex items-center justify-between gap-2">
+                        <div className="mt-3 pt-3 border-t border-slate-200/80 space-y-2.5 bg-slate-50/80 -mx-1 p-3 rounded-lg border border-slate-200/60">
+                          <div className="flex flex-wrap items-center justify-between gap-2">
                             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                               {language === 'en' ? 'Official Service Source' : 'शासकीय सेवा स्रोत'}
                             </span>
-                            {msg.retrievedService && (
-                              <span
-                                className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                                  msg.retrievedService.verificationStatus === 'verified'
-                                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                                    : 'bg-amber-100 text-amber-800 border border-amber-300'
-                                }`}
-                              >
-                                {msg.retrievedService.verificationStatus === 'verified' ? (
-                                  <>
+                            {msg.retrievedService && (() => {
+                              // Rigorous verification check: only truly 'verified' if overallStatus is verified AND no missing/null fields
+                              const isFullyVerified =
+                                msg.retrievedService.verificationStatus === 'verified' &&
+                                (!msg.fieldReport || !msg.fieldReport.missingOrNullFields || msg.fieldReport.missingOrNullFields.length === 0);
+                              
+                              const isUnverified =
+                                msg.retrievedService.verificationStatus === 'unverified' ||
+                                (!msg.sources || msg.sources.length === 0);
+
+                              if (isFullyVerified) {
+                                return (
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
                                     <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                                    <span>{language === 'en' ? 'VERIFIED SOURCE' : 'सत्यापित स्रोत'}</span>
-                                  </>
-                                ) : (
-                                  <>
+                                    <span>{language === 'en' ? 'VERIFIED' : 'सत्यापित'}</span>
+                                  </span>
+                                );
+                              } else if (isUnverified) {
+                                return (
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300">
+                                    <AlertCircle className="w-3 h-3 text-rose-600" />
+                                    <span>{language === 'en' ? 'UNVERIFIED' : 'असत्यापित'}</span>
+                                  </span>
+                                );
+                              } else {
+                                return (
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
                                     <Clock className="w-3 h-3 text-amber-600" />
                                     <span>{language === 'en' ? 'PENDING VERIFICATION' : 'सत्यापन प्रक्रियाधीन'}</span>
-                                  </>
-                                )}
-                              </span>
-                            )}
+                                  </span>
+                                );
+                              }
+                            })()}
                           </div>
 
                           {/* Sources listing */}
-                          {msg.sources && msg.sources.length > 0 && (
+                          {msg.sources && msg.sources.length > 0 ? (
                             <div className="space-y-1.5">
                               {msg.sources.map((src, sIdx) => (
                                 <div
                                   key={src.id || sIdx}
-                                  className="p-2 rounded bg-white border border-slate-200 text-slate-700 text-[11px] space-y-1 shadow-2xs"
+                                  className="p-2.5 rounded bg-white border border-slate-200 text-slate-700 text-[11px] space-y-1.5 shadow-2xs"
                                 >
                                   <div className="flex items-start justify-between gap-2">
                                     <span className="font-semibold text-[#142B4A]">
@@ -567,10 +579,12 @@ export const AssistantPage: React.FC = () => {
                                       className={`text-[9px] font-bold px-1.5 py-0.5 rounded shrink-0 ${
                                         src.verificationStatus === 'verified'
                                           ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
+                                          : src.verificationStatus === 'unverified'
+                                          ? 'text-rose-700 bg-rose-50 border border-rose-200'
                                           : 'text-amber-700 bg-amber-50 border border-amber-200'
                                       }`}
                                     >
-                                      {src.verificationStatus === 'verified' ? 'VERIFIED' : 'PENDING'}
+                                      {src.verificationStatus.toUpperCase()}
                                     </span>
                                   </div>
 
@@ -588,6 +602,13 @@ export const AssistantPage: React.FC = () => {
                                     )}
                                   </div>
 
+                                  {src.informationSupported && (
+                                    <div className="text-[10px] text-slate-600 bg-slate-50 p-1.5 rounded border border-slate-100">
+                                      <span className="font-medium text-slate-500">{language === 'en' ? 'Verified Fact: ' : 'सत्यापित तथ्य: '}</span>
+                                      <span>{src.informationSupported}</span>
+                                    </div>
+                                  )}
+
                                   {src.sourceUrl && (
                                     <div className="pt-0.5">
                                       <button
@@ -603,30 +624,51 @@ export const AssistantPage: React.FC = () => {
                                 </div>
                               ))}
                             </div>
+                          ) : (
+                            <div className="p-2.5 rounded bg-rose-50 border border-rose-200 text-[11px] text-rose-900 flex items-start gap-2">
+                              <AlertCircle className="w-3.5 h-3.5 text-rose-600 shrink-0 mt-0.5" />
+                              <div>
+                                <p className="font-semibold">
+                                  {language === 'en'
+                                    ? 'This information has not yet been verified from an official source.'
+                                    : 'यह जानकारी अभी तक किसी आधिकारिक स्रोत से सत्यापित नहीं हुई है।'}
+                                </p>
+                                <p className="text-[10px] text-rose-700 mt-0.5">
+                                  {language === 'en'
+                                    ? 'Please consult https://eservices.uk.gov.in or visit the relevant department before proceeding.'
+                                    : 'कृपया आगे बढ़ने से पहले https://eservices.uk.gov.in देखें अथवा संबंधित विभाग से संपर्क करें।'}
+                                </p>
+                              </div>
+                            </div>
                           )}
 
-                          {/* Missing / Null Field Transparency Notice (Section 4 & 8) */}
+                          {/* Missing / Null Field Transparency Notice (Rule 3 & Zero Fabrication) */}
                           {msg.fieldReport && msg.fieldReport.missingOrNullFields && msg.fieldReport.missingOrNullFields.length > 0 && (
-                            <div className="p-2 rounded bg-amber-50 border border-amber-200 text-[10px] text-amber-900 flex items-start gap-1.5">
+                            <div className="p-2.5 rounded bg-amber-50 border border-amber-200 text-[10px] text-amber-900 flex items-start gap-1.5">
                               <Info className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-                              <div className="space-y-0.5">
+                              <div className="space-y-1">
+                                <div className="font-semibold text-amber-950">
+                                  {language === 'en'
+                                    ? 'Official Notice: This information has not yet been verified from an official source.'
+                                    : 'शासकीय सूचना: यह जानकारी अभी तक किसी आधिकारिक स्रोत से सत्यापित नहीं हुई है।'}
+                                </div>
                                 {msg.fieldReport.missingOrNullFields.includes('fees') && (
                                   <div>
-                                    <strong className="font-semibold">{language === 'en' ? 'Fee Notice: ' : 'शुल्क सूचना: '}</strong>
+                                    <span className="font-semibold">{language === 'en' ? 'Fee Status: ' : 'शुल्क स्थिति: '}</span>
                                     <span>
                                       {language === 'en'
-                                        ? 'Fee details are currently pending official gazette verification. Not estimated by AI.'
-                                        : 'शुल्क विवरण आधिकारिक गजट अनुसार सत्यापन प्रक्रियाधीन है। एआई द्वारा अनुमानित नहीं किया गया है।'}
+                                        ? 'Fees for this specific service have not been verified from the official gazette. Fees are never estimated or invented by Apuni AI.'
+                                        : 'इस सेवा हेतु शुल्क अभी तक आधिकारिक गजट से सत्यापित नहीं हुआ है। अपुणी AI कभी भी शुल्क का अनुमान नहीं लगाता।'}
                                     </span>
                                   </div>
                                 )}
                                 {msg.fieldReport.missingOrNullFields.includes('processingTime') && (
                                   <div>
-                                    <strong className="font-semibold">{language === 'en' ? 'Processing Time Notice: ' : 'समय-सीमा सूचना: '}</strong>
+                                    <span className="font-semibold">{language === 'en' ? 'Processing Time Status: ' : 'समय-सीमा स्थिति: '}</span>
                                     <span>
                                       {language === 'en'
-                                        ? 'Delivery timeframe is pending departmental notification under RTS standards.'
-                                        : 'समय-सीमा आरटीएस मानकों के अंतर्गत विभागीय अधिसूचना हेतु सत्यापन प्रक्रियाधीन है।'}
+                                        ? 'Delivery timeframe has not been verified from the official RTS schedule. Timelines are never assumed.'
+                                        : 'समय-सीमा आधिकारिक आरटीएस अनुसूची से अभी तक सत्यापित नहीं हुई है। समयावधि का कभी अनुमान नहीं लगाया जाता।'}
                                     </span>
                                   </div>
                                 )}
