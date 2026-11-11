@@ -11,10 +11,8 @@ import {
   HandHeart,
   FileText,
   Clock,
-  ArrowRight,
   CheckSquare,
   BookOpen,
-  Filter,
   Scroll
 } from 'lucide-react';
 
@@ -26,21 +24,21 @@ export const ServicesPage: React.FC = () => {
   const getServiceIcon = (name: string) => {
     switch (name) {
       case 'CreditCard':
-        return <CreditCard className="w-6 h-6 text-[#F29B38]" />;
+        return <CreditCard className="w-5 h-5 text-[#D98B36]" />;
       case 'ShieldCheck':
-        return <ShieldCheck className="w-6 h-6 text-[#F29B38]" />;
+        return <ShieldCheck className="w-5 h-5 text-[#47745A]" />;
       case 'Home':
-        return <HomeIcon className="w-6 h-6 text-[#F29B38]" />;
+        return <HomeIcon className="w-5 h-5 text-[#183153]" />;
       case 'Baby':
-        return <Baby className="w-6 h-6 text-[#F29B38]" />;
+        return <Baby className="w-5 h-5 text-[#D98B36]" />;
       case 'HeartPulse':
-        return <HeartPulse className="w-6 h-6 text-[#F29B38]" />;
+        return <HeartPulse className="w-5 h-5 text-[#47745A]" />;
       case 'HandHeart':
-        return <HandHeart className="w-6 h-6 text-[#F29B38]" />;
+        return <HandHeart className="w-5 h-5 text-[#D98B36]" />;
       case 'Scroll':
-        return <Scroll className="w-6 h-6 text-[#F29B38]" />;
+        return <Scroll className="w-5 h-5 text-[#183153]" />;
       default:
-        return <FileText className="w-6 h-6 text-[#F29B38]" />;
+        return <FileText className="w-5 h-5 text-[#183153]" />;
     }
   };
 
@@ -64,44 +62,44 @@ export const ServicesPage: React.FC = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
       {/* Page Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-4">
+      <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 sm:p-8 shadow-2xs space-y-4">
         <div>
-          <span className="text-xs font-bold text-[#F29B38] uppercase tracking-wider">
-            {language === 'en' ? 'Apuni Sarkar Directory' : 'अपुणी सरकार ई-सेवा संदर्शिका'}
+          <span className="text-xs font-bold text-[#D98B36] uppercase tracking-wider">
+            {language === 'en' ? 'Citizen Service Directory' : 'अपुणी सरकार ई-सेवा संदर्शिका'}
           </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#142B4A] mt-1">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#183153] mt-1 break-words">
             {t.servicesPage.title}
           </h1>
-          <p className="text-sm text-slate-600 mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-[#5A6A80] mt-1 max-w-2xl">
             {t.servicesPage.subtitle}
           </p>
         </div>
 
         {/* Search & Filter Controls */}
-        <div className="flex flex-col md:flex-row gap-4 pt-2">
+        <div className="flex flex-col md:flex-row gap-3 sm:gap-4 pt-2">
           {/* Search Bar */}
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#5A6A80] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder={t.servicesPage.searchPlaceholder}
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#142B4A] bg-slate-50 focus:bg-white transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 min-h-[44px] rounded-lg border border-[#E5E7EB] text-xs sm:text-sm text-[#183153] placeholder-[#5A6A80] focus:outline-none focus:border-[#183153] bg-[#F5F7FA] focus:bg-white transition-colors"
             />
           </div>
 
-          {/* Interactive Category Filter Tabs (Single-line controls with working handlers) */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+          {/* Interactive Category Filter Tabs: Horizontal scrollable strip on mobile */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 -mx-1 px-1 sm:mx-0 sm:px-0">
             <button
               type="button"
               onClick={() => setSelectedCategory('all')}
-              className={`px-3 py-2 text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 ${
+              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
                 selectedCategory === 'all'
-                  ? 'bg-[#142B4A] text-white'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-[#183153] text-white'
+                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
               }`}
             >
               {t.servicesPage.allCategories}
@@ -109,10 +107,10 @@ export const ServicesPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setSelectedCategory('revenue')}
-              className={`px-3 py-2 text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 ${
+              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
                 selectedCategory === 'revenue'
-                  ? 'bg-[#142B4A] text-white'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-[#183153] text-white'
+                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
               }`}
             >
               {t.servicesPage.revenue}
@@ -120,10 +118,10 @@ export const ServicesPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setSelectedCategory('social_welfare')}
-              className={`px-3 py-2 text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 ${
+              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
                 selectedCategory === 'social_welfare'
-                  ? 'bg-[#142B4A] text-white'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-[#183153] text-white'
+                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
               }`}
             >
               {t.servicesPage.socialWelfare}
@@ -131,10 +129,10 @@ export const ServicesPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setSelectedCategory('vital_records')}
-              className={`px-3 py-2 text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 ${
+              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
                 selectedCategory === 'vital_records'
-                  ? 'bg-[#142B4A] text-white'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-[#183153] text-white'
+                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
               }`}
             >
               {t.servicesPage.vitalRecords}
@@ -143,24 +141,24 @@ export const ServicesPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Services Grid: 1 column on mobile, 2 on tablet, 3 on desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {filteredServices.map(service => (
           <div
             key={service.id}
-            className="bg-white rounded-xl border border-slate-200 shadow-xs hover:shadow-md transition-all p-6 flex flex-col justify-between"
+            className="bg-white rounded-xl border border-[#E5E7EB] hover:border-[#183153]/40 shadow-2xs hover:shadow-xs transition-all p-5 sm:p-6 flex flex-col justify-between"
           >
             <div className="space-y-4">
               {/* Card Header: Icon & Code */}
               <div className="flex items-center justify-between gap-3">
-                <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center border border-amber-100">
+                <div className="w-10 h-10 rounded-lg bg-[#F5F7FA] flex items-center justify-center border border-[#E5E7EB] shrink-0">
                   {getServiceIcon(service.iconName)}
                 </div>
                 <div className="text-right">
-                  <span className="text-[11px] font-mono text-slate-500 font-semibold bg-slate-100 px-2 py-0.5 rounded">
+                  <span className="text-[11px] font-mono text-[#5A6A80] font-semibold bg-[#F5F7FA] px-2 py-0.5 rounded border border-[#E5E7EB]">
                     {service.code}
                   </span>
-                  <div className="text-[10px] text-slate-400 mt-0.5">
+                  <div className="text-[10px] text-[#5A6A80] mt-0.5 font-medium">
                     {service.category.toUpperCase()}
                   </div>
                 </div>
@@ -168,48 +166,48 @@ export const ServicesPage: React.FC = () => {
 
               {/* Title & Department */}
               <div>
-                <h2 className="text-lg font-bold text-[#142B4A] leading-snug">
+                <h2 className="text-base sm:text-lg font-bold text-[#183153] leading-snug break-words">
                   {service.title[language]}
                 </h2>
-                <div className="text-xs text-slate-500 font-medium mt-0.5">
+                <div className="text-xs text-[#5A6A80] font-medium mt-0.5">
                   {service.department[language]}
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-[#5A6A80] leading-relaxed">
                 {service.shortDesc[language]}
               </p>
 
               {/* RTS and SLA details */}
-              <div className="pt-2 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
+              <div className="pt-2 border-t border-[#E5E7EB] space-y-1.5 text-xs text-[#5A6A80]">
                 <div className="flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-[#F29B38] shrink-0" />
+                  <Clock className="w-3.5 h-3.5 text-[#D98B36] shrink-0" />
                   <span>
-                    {t.common.estimatedTime}: <strong className="text-slate-800 tabular-nums">{service.estimatedDays} {t.common.days}</strong>
+                    {t.common.estimatedTime}: <strong className="text-[#183153] tabular-nums font-semibold">{service.estimatedDays} {t.common.days}</strong>
                   </span>
                 </div>
-                <div className="text-[11px] text-slate-500 italic">
+                <div className="text-[11px] text-[#47745A] font-medium leading-snug">
                   {service.rtsGuarantee[language]}
                 </div>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="pt-5 mt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+            {/* Action Buttons: Stacked on narrow mobile, 2 cols on tablet/desktop */}
+            <div className="pt-4 mt-4 border-t border-[#E5E7EB] grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <button
                 type="button"
                 onClick={() => navigateTo('checklist', service.id)}
-                className="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 min-h-[44px] rounded-lg text-xs font-semibold bg-[#F5F7FA] hover:bg-slate-200 text-[#183153] border border-[#E5E7EB] transition-colors"
               >
-                <CheckSquare className="w-3.5 h-3.5 text-[#F29B38]" />
+                <CheckSquare className="w-3.5 h-3.5 text-[#D98B36]" />
                 <span>{t.servicesPage.openChecklist}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => navigateTo('guide', service.id)}
-                className="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold bg-[#142B4A] hover:bg-[#0D1C30] text-white transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 min-h-[44px] rounded-lg text-xs font-semibold bg-[#183153] hover:bg-[#12253E] text-white transition-colors"
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{t.servicesPage.viewDetails}</span>
@@ -220,8 +218,8 @@ export const ServicesPage: React.FC = () => {
       </div>
 
       {filteredServices.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-xl border border-slate-200 p-8 space-y-3">
-          <p className="text-sm text-slate-600">
+        <div className="text-center py-12 bg-white rounded-xl border border-[#E5E7EB] p-8 space-y-3">
+          <p className="text-sm text-[#5A6A80]">
             {language === 'en'
               ? 'No matching citizen services found for your query.'
               : 'आपकी खोज के अनुसार कोई सेवा नहीं मिली।'}
@@ -232,7 +230,7 @@ export const ServicesPage: React.FC = () => {
               setSearchQuery('');
               setSelectedCategory('all');
             }}
-            className="px-4 py-2 rounded-lg bg-[#142B4A] text-white text-xs font-semibold"
+            className="px-4 py-2 rounded-lg bg-[#183153] text-white text-xs font-semibold"
           >
             {language === 'en' ? 'Clear Filters' : 'फ़िल्टर हटाएं'}
           </button>

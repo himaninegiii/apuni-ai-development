@@ -33,9 +33,9 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased selection:bg-[#F29B38]/30 selection:text-[#142B4A]">
+    <div className="min-h-screen flex flex-col bg-white text-[#183153] antialiased selection:bg-[#D98B36]/20 selection:text-[#183153] overflow-x-hidden w-full max-w-full">
       <Navbar />
-      <main className="flex-1 pb-12">
+      <main className="flex-1 w-full max-w-full overflow-x-hidden">
         {renderCurrentPage()}
       </main>
       <Footer />

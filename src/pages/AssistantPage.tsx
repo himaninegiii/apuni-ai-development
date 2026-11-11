@@ -404,24 +404,24 @@ export const AssistantPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
       {/* Page Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#142B4A] text-[#F29B38] flex items-center justify-center font-bold">
+      <div className="bg-white rounded-xl border border-[#E5E7EB] p-4 sm:p-6 shadow-2xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+            <div className="w-10 h-10 rounded-lg bg-[#183153] text-[#D98B36] flex items-center justify-center font-bold shadow-2xs shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-bold text-[#142B4A]">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-lg sm:text-2xl font-bold text-[#183153] truncate">
                   {t.chat.headerTitle}
                 </h1>
-                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                <span className="text-[10px] font-semibold text-[#47745A] bg-[#F5F7FA] px-2 py-0.5 rounded border border-[#E5E7EB] shrink-0">
                   Gemini AI Active
                 </span>
               </div>
-              <p className="text-xs text-slate-500">
+              <p className="text-[11px] sm:text-xs text-[#5A6A80] mt-0.5 leading-snug">
                 {language === 'en'
                   ? 'Real-time conversational assistant for Uttarakhand government services in Hindi, English & Hinglish'
                   : 'उत्तराखंड नागरिक सेवाओं हेतु हिंदी, अंग्रेजी व हिंग्लिश में वास्तविक जेमिनी AI सहायक'}
@@ -429,11 +429,11 @@ export const AssistantPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
             <button
               type="button"
               onClick={handleResetChat}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2 min-h-[38px] rounded-lg text-xs font-semibold text-[#183153] bg-[#F5F7FA] hover:bg-slate-200 border border-[#E5E7EB] transition-colors"
               title="Reset conversation"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -443,10 +443,10 @@ export const AssistantPage: React.FC = () => {
         </div>
 
         {/* Knowledge Base & Transparency Indicator */}
-        <div className="mt-4 p-3 rounded-lg bg-sky-50 border border-sky-100 flex items-start gap-2.5 text-xs text-slate-700 leading-relaxed">
-          <Info className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
-          <div>
-            <strong className="text-[#142B4A] font-semibold">
+        <div className="mt-3 sm:mt-4 p-3 rounded-lg bg-[#F5F7FA] border border-[#E5E7EB] flex items-start gap-2.5 text-xs text-[#5A6A80] leading-relaxed">
+          <Info className="w-4 h-4 text-[#183153] shrink-0 mt-0.5" />
+          <div className="break-words">
+            <strong className="text-[#183153] font-semibold">
               {language === 'en' ? 'Verified Government Knowledge Base: ' : 'सत्यापित शासकीय संदर्शिका: '}
             </strong>
             <span>
@@ -459,17 +459,17 @@ export const AssistantPage: React.FC = () => {
       </div>
 
       {/* Suggested Questions Strip */}
-      <div className="mb-4">
-        <div className="text-xs font-semibold text-slate-500 mb-2">
+      <div>
+        <div className="text-xs font-semibold text-[#5A6A80] mb-2">
           {language === 'en' ? 'Quick Citizen Queries (Hindi, English & Hinglish):' : 'नागरिक त्वरित प्रश्न (हिंदी, अंग्रेजी एवं हिंग्लिश):'}
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex items-center sm:flex-wrap gap-2 overflow-x-auto pb-2 -mx-1 px-1 sm:mx-0 sm:px-0">
           {suggestedQuestions.map((sq, idx) => (
             <button
               key={idx}
               type="button"
               onClick={() => handleUserSend(sq.query)}
-              className="text-xs py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-[#142B4A] hover:text-[#142B4A] transition-colors shadow-2xs text-left"
+              className="text-xs py-2 px-3 min-h-[38px] rounded-lg bg-white border border-[#E5E7EB] text-[#183153] hover:border-[#183153] hover:bg-[#F5F7FA] transition-colors shadow-2xs text-left whitespace-nowrap sm:whitespace-normal shrink-0 sm:shrink flex items-center"
             >
               {sq.label}
             </button>
@@ -477,10 +477,10 @@ export const AssistantPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Chat Messages Container */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-xs flex flex-col h-[540px] overflow-hidden">
+      {/* Chat Messages Container: Clean white helpdesk interface */}
+      <div className="bg-white rounded-xl border border-[#E5E7EB] shadow-2xs flex flex-col h-[500px] sm:h-[580px] max-h-[72dvh] sm:max-h-[78vh] overflow-hidden">
         {/* Messages Stream */}
-        <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-5 bg-slate-50/50">
+        <div className="flex-1 p-3.5 sm:p-6 overflow-y-auto space-y-4 sm:space-y-5 bg-[#F5F7FA]">
           {messages.map(msg => {
             const isUser = msg.sender === 'user';
             return (
@@ -489,43 +489,43 @@ export const AssistantPage: React.FC = () => {
                 className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}
               >
                 <div
-                  className={`max-w-[88%] sm:max-w-[82%] rounded-2xl p-4 shadow-2xs space-y-2.5 ${
+                  className={`max-w-[94%] sm:max-w-[82%] rounded-xl p-3.5 sm:p-4 space-y-2.5 shadow-2xs break-words overflow-hidden ${
                     isUser
-                      ? 'bg-[#142B4A] text-white rounded-tr-xs'
-                      : 'bg-white text-slate-800 border border-slate-200 rounded-tl-xs'
+                      ? 'bg-[#183153] text-white rounded-tr-xs'
+                      : 'bg-white text-[#183153] border border-[#E5E7EB] rounded-tl-xs'
                   }`}
                 >
                   {/* Sender identity & metadata */}
-                  <div className="flex items-center justify-between gap-3 text-[11px] pb-1 border-b border-black/5">
-                    <span className={isUser ? 'text-sky-200 font-semibold' : 'text-[#142B4A] font-bold'}>
-                      {isUser ? (language === 'en' ? 'You (Citizen)' : 'आप (नागरिक)') : 'Apuni AI Assistant'}
+                  <div className={`flex items-center justify-between gap-3 text-[11px] pb-1 border-b ${isUser ? 'border-white/10' : 'border-[#E5E7EB]'}`}>
+                    <span className={isUser ? 'text-[#D98B36] font-semibold' : 'text-[#183153] font-bold'}>
+                      {isUser ? (language === 'en' ? 'You (Citizen)' : 'आप (नागरिक)') : 'Apuni AI Public Desk'}
                     </span>
 
                     {!isUser && (
-                      <span className="text-[10px] tracking-wide text-slate-500">
-                        Gemini 3.8 Flash
+                      <span className="text-[10px] tracking-wide text-[#5A6A80] hidden xs:inline">
+                        Official Knowledge Grounded
                       </span>
                     )}
 
-                    <span className={`tabular-nums ${isUser ? 'text-sky-300' : 'text-slate-400'}`}>
+                    <span className={`tabular-nums shrink-0 ${isUser ? 'text-slate-300' : 'text-[#5A6A80]'}`}>
                       {msg.timestamp}
                     </span>
                   </div>
 
                   {/* Message body */}
                   {isUser ? (
-                    <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+                    <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-line text-slate-100 break-words">
                       {msg.text}
                     </p>
                   ) : (
                     <>
                       {renderFormattedText(msg.text)}
 
-                      {/* Compact Information-Source Section (Section 6 & Verification Hardening) */}
+                      {/* Compact Information-Source Section (Rigorous Verification Badges) */}
                       {((msg.sources && msg.sources.length > 0) || msg.retrievedService) && (
-                        <div className="mt-3 pt-3 border-t border-slate-200/80 space-y-2.5 bg-slate-50/80 -mx-1 p-3 rounded-lg border border-slate-200/60">
+                        <div className="mt-3 pt-3 border-t border-[#E5E7EB] space-y-2.5 bg-[#F5F7FA] -mx-1 p-3 rounded-lg border border-[#E5E7EB]">
                           <div className="flex flex-wrap items-center justify-between gap-2">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#5A6A80]">
                               {language === 'en' ? 'Official Service Source' : 'शासकीय सेवा स्रोत'}
                             </span>
                             {msg.retrievedService && (() => {
@@ -540,22 +540,22 @@ export const AssistantPage: React.FC = () => {
 
                               if (isFullyVerified) {
                                 return (
-                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
-                                    <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-[#47745A] border border-emerald-200">
+                                    <ShieldCheck className="w-3 h-3 text-[#47745A]" />
                                     <span>{language === 'en' ? 'VERIFIED' : 'सत्यापित'}</span>
                                   </span>
                                 );
                               } else if (isUnverified) {
                                 return (
-                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300">
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-800 border border-rose-200">
                                     <AlertCircle className="w-3 h-3 text-rose-600" />
                                     <span>{language === 'en' ? 'UNVERIFIED' : 'असत्यापित'}</span>
                                   </span>
                                 );
                               } else {
                                 return (
-                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
-                                    <Clock className="w-3 h-3 text-amber-600" />
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
+                                    <Clock className="w-3 h-3 text-amber-700" />
                                     <span>{language === 'en' ? 'PENDING VERIFICATION' : 'सत्यापन प्रक्रियाधीन'}</span>
                                   </span>
                                 );
@@ -569,42 +569,42 @@ export const AssistantPage: React.FC = () => {
                               {msg.sources.map((src, sIdx) => (
                                 <div
                                   key={src.id || sIdx}
-                                  className="p-2.5 rounded bg-white border border-slate-200 text-slate-700 text-[11px] space-y-1.5 shadow-2xs"
+                                  className="p-2.5 rounded bg-white border border-[#E5E7EB] text-[#183153] text-[11px] space-y-1.5 shadow-2xs"
                                 >
                                   <div className="flex items-start justify-between gap-2">
-                                    <span className="font-semibold text-[#142B4A]">
+                                    <span className="font-semibold text-[#183153]">
                                       {src.sourceTitle}
                                     </span>
                                     <span
                                       className={`text-[9px] font-bold px-1.5 py-0.5 rounded shrink-0 ${
                                         src.verificationStatus === 'verified'
-                                          ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
+                                          ? 'text-[#47745A] bg-emerald-50 border border-emerald-200'
                                           : src.verificationStatus === 'unverified'
                                           ? 'text-rose-700 bg-rose-50 border border-rose-200'
-                                          : 'text-amber-700 bg-amber-50 border border-amber-200'
+                                          : 'text-amber-800 bg-amber-50 border border-amber-200'
                                       }`}
                                     >
                                       {src.verificationStatus.toUpperCase()}
                                     </span>
                                   </div>
 
-                                  <div className="text-[10px] text-slate-500 flex flex-wrap items-center gap-x-3 gap-y-0.5">
+                                  <div className="text-[10px] text-[#5A6A80] flex flex-wrap items-center gap-x-3 gap-y-0.5">
                                     <span>{src.governmentDepartment}</span>
                                     {src.verificationDate ? (
-                                      <span className="text-slate-600 font-medium">
+                                      <span className="text-[#183153] font-medium">
                                         {language === 'en' ? 'Last Verified: ' : 'अंतिम सत्यापन: '}
                                         {src.verificationDate}
                                       </span>
                                     ) : (
-                                      <span className="text-amber-700 font-medium">
+                                      <span className="text-amber-800 font-medium">
                                         {language === 'en' ? 'Date: Pending official gazette' : 'दिनांक: गजट अधिसूचना प्रतीक्षित'}
                                       </span>
                                     )}
                                   </div>
 
                                   {src.informationSupported && (
-                                    <div className="text-[10px] text-slate-600 bg-slate-50 p-1.5 rounded border border-slate-100">
-                                      <span className="font-medium text-slate-500">{language === 'en' ? 'Verified Fact: ' : 'सत्यापित तथ्य: '}</span>
+                                    <div className="text-[10px] text-[#5A6A80] bg-[#F5F7FA] p-1.5 rounded border border-[#E5E7EB]">
+                                      <span className="font-medium text-[#183153]">{language === 'en' ? 'Verified Fact: ' : 'सत्यापित तथ्य: '}</span>
                                       <span>{src.informationSupported}</span>
                                     </div>
                                   )}
@@ -614,10 +614,12 @@ export const AssistantPage: React.FC = () => {
                                       <button
                                         type="button"
                                         onClick={() => triggerExternalRedirect(src.sourceUrl)}
-                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-sky-700 hover:text-sky-900 transition-colors"
+                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#183153] hover:text-[#D98B36] transition-colors max-w-full"
                                       >
-                                        <span>{src.sourceUrl.replace(/^https?:\/\//, '')}</span>
-                                        <ExternalLink className="w-2.5 h-2.5 text-[#F29B38]" />
+                                        <span className="truncate max-w-[210px] sm:max-w-none inline-block">
+                                          {src.sourceUrl.replace(/^https?:\/\//, '')}
+                                        </span>
+                                        <ExternalLink className="w-2.5 h-2.5 text-[#D98B36] shrink-0" />
                                       </button>
                                     </div>
                                   )}
@@ -642,7 +644,7 @@ export const AssistantPage: React.FC = () => {
                             </div>
                           )}
 
-                          {/* Missing / Null Field Transparency Notice (Rule 3 & Zero Fabrication) */}
+                          {/* Missing / Null Field Transparency Notice */}
                           {msg.fieldReport && msg.fieldReport.missingOrNullFields && msg.fieldReport.missingOrNullFields.length > 0 && (
                             <div className="p-2.5 rounded bg-amber-50 border border-amber-200 text-[10px] text-amber-900 flex items-start gap-1.5">
                               <Info className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
@@ -682,15 +684,15 @@ export const AssistantPage: React.FC = () => {
 
                   {/* Quick Action Navigation Buttons */}
                   {!isUser && msg.quickActions && msg.quickActions.length > 0 && (
-                    <div className="pt-2 flex flex-wrap gap-2 border-t border-slate-100">
+                    <div className="pt-2 flex flex-wrap gap-2 border-t border-[#E5E7EB]">
                       {msg.quickActions.map((action, aIdx) => (
                         <button
                           key={aIdx}
                           type="button"
                           onClick={() => navigateTo(action.targetPage, action.serviceId)}
-                          className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded bg-slate-100 hover:bg-[#142B4A] hover:text-white text-slate-700 text-xs font-semibold transition-colors"
+                          className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded bg-[#F5F7FA] hover:bg-[#183153] hover:text-white text-[#183153] border border-[#E5E7EB] text-xs font-semibold transition-colors"
                         >
-                          <Compass className="w-3 h-3 text-[#F29B38]" />
+                          <Compass className="w-3 h-3 text-[#D98B36]" />
                           <span>{action.label}</span>
                         </button>
                       ))}
@@ -699,11 +701,11 @@ export const AssistantPage: React.FC = () => {
 
                   {/* Accessibility audio read-aloud and official link */}
                   {!isUser && (
-                    <div className="pt-1 flex items-center justify-between text-xs text-slate-500">
+                    <div className="pt-1 flex items-center justify-between text-xs text-[#5A6A80]">
                       <button
                         type="button"
                         onClick={() => handleReadAloud(msg)}
-                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 hover:text-[#142B4A] transition-colors"
+                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#5A6A80] hover:text-[#183153] transition-colors"
                         title={activeSpeechId === msg.id ? t.chat.stopAudio : t.chat.readAloud}
                       >
                         {activeSpeechId === msg.id ? (
@@ -713,7 +715,7 @@ export const AssistantPage: React.FC = () => {
                           </>
                         ) : (
                           <>
-                            <Volume2 className="w-3.5 h-3.5 text-[#F29B38]" />
+                            <Volume2 className="w-3.5 h-3.5 text-[#D98B36]" />
                             <span>{t.chat.readAloud}</span>
                           </>
                         )}
@@ -722,10 +724,10 @@ export const AssistantPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => triggerExternalRedirect('https://eservices.uk.gov.in')}
-                        className="text-[11px] text-slate-500 hover:text-slate-800 flex items-center gap-1 font-medium"
+                        className="text-[11px] text-[#5A6A80] hover:text-[#183153] flex items-center gap-1 font-medium"
                       >
                         <span>eservices.uk.gov.in</span>
-                        <ExternalLink className="w-2.5 h-2.5 text-[#F29B38]" />
+                        <ExternalLink className="w-2.5 h-2.5 text-[#D98B36]" />
                       </button>
                     </div>
                   )}
@@ -737,9 +739,9 @@ export const AssistantPage: React.FC = () => {
           {/* Loading Indicator */}
           {isLoading && (
             <div className="flex items-start gap-2">
-              <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-xs p-4 shadow-2xs flex items-center gap-3">
-                <Loader2 className="w-4 h-4 text-[#F29B38] animate-spin" />
-                <span className="text-xs text-slate-600">
+              <div className="bg-white border border-[#E5E7EB] rounded-xl rounded-tl-xs p-4 shadow-2xs flex items-center gap-3">
+                <Loader2 className="w-4 h-4 text-[#D98B36] animate-spin" />
+                <span className="text-xs text-[#5A6A80]">
                   {language === 'en'
                     ? 'Apuni AI is preparing verified guidance...'
                     : 'अपुणी AI शासकीय नियमों के अनुसार उत्तर तैयार कर रहा है...'}
@@ -776,7 +778,7 @@ export const AssistantPage: React.FC = () => {
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 bg-white border-t border-slate-200">
+        <div className="p-3 bg-white border-t border-[#E5E7EB]">
           <form
             onSubmit={e => {
               e.preventDefault();
@@ -789,15 +791,15 @@ export const AssistantPage: React.FC = () => {
               type="button"
               onClick={toggleListening}
               disabled={isLoading}
-              className={`p-2.5 rounded-lg transition-all ${
+              className={`p-2.5 rounded-lg transition-all border min-w-[44px] min-h-[44px] flex items-center justify-center shrink-0 ${
                 isListening
-                  ? 'bg-red-600 text-white animate-pulse'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-red-600 text-white border-red-600 animate-pulse'
+                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border-[#E5E7EB]'
               }`}
               title={isListening ? t.chat.listening : t.chat.speakTooltip}
               aria-label="Microphone input"
             >
-              {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5 text-[#142B4A]" />}
+              {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5 text-[#183153]" />}
             </button>
 
             {/* Text Input */}
@@ -807,17 +809,17 @@ export const AssistantPage: React.FC = () => {
               onChange={e => setInputText(e.target.value)}
               disabled={isLoading}
               placeholder={isListening ? t.chat.listening : t.chat.inputPlaceholder}
-              className="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:border-[#142B4A] focus:outline-none transition-colors"
+              className="flex-1 bg-[#F5F7FA] border border-[#E5E7EB] rounded-lg px-3.5 py-2.5 min-h-[44px] text-xs sm:text-sm text-[#183153] placeholder-[#5A6A80] focus:bg-white focus:border-[#183153] focus:outline-none transition-colors"
             />
 
             {/* Send Button */}
             <button
               type="submit"
               disabled={!inputText.trim() || isLoading}
-              className={`flex items-center justify-center p-2.5 rounded-lg text-white font-semibold transition-all ${
+              className={`flex items-center justify-center p-2.5 rounded-lg text-white font-semibold transition-all min-w-[44px] min-h-[44px] shrink-0 ${
                 inputText.trim() && !isLoading
-                  ? 'bg-[#142B4A] hover:bg-[#0D1C30]'
-                  : 'bg-slate-300 cursor-not-allowed text-slate-500'
+                  ? 'bg-[#183153] hover:bg-[#12253E]'
+                  : 'bg-slate-200 cursor-not-allowed text-slate-400'
               }`}
               aria-label="Send query"
             >
