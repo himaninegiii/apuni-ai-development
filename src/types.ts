@@ -42,9 +42,39 @@ export interface ApplicationStep {
   };
 }
 
+export type ServiceCategory =
+  | 'revenue_identity'
+  | 'civil_registration'
+  | 'social_welfare'
+  | 'student_services'
+  | 'land_administration'
+  | 'certificates'
+  | 'revenue'
+  | 'vital_records';
+
+export type ServiceType = 'certificate' | 'registration' | 'scheme' | 'guidance';
+
+export type ApplicationMode = 'apuni_sarkar_online' | 'department_portal' | 'offline_in_person' | 'hybrid';
+
 export interface ServiceItem {
   id: string;
-  iconName: 'FileText' | 'ShieldCheck' | 'Home' | 'Baby' | 'HeartPulse' | 'HandHeart' | 'CreditCard' | 'Scroll';
+  iconName:
+    | 'FileText'
+    | 'ShieldCheck'
+    | 'Home'
+    | 'Baby'
+    | 'HeartPulse'
+    | 'HandHeart'
+    | 'CreditCard'
+    | 'Scroll'
+    | 'GraduationCap'
+    | 'Building2'
+    | 'Landmark'
+    | 'Award'
+    | 'BookOpen'
+    | 'Compass'
+    | 'FileCheck'
+    | 'Layers';
   code: string;
   title: {
     en: string;
@@ -54,7 +84,15 @@ export interface ServiceItem {
     en: string;
     hi: string;
   };
-  category: 'certificates' | 'revenue' | 'social_welfare' | 'vital_records';
+  category: ServiceCategory;
+  serviceType: ServiceType;
+  applicationMode: ApplicationMode;
+  verificationStatus: 'verified' | 'pending' | 'unverified';
+  officialPortalUrl: string;
+  officialPortalName?: {
+    en: string;
+    hi: string;
+  };
   shortDesc: {
     en: string;
     hi: string;

@@ -65,10 +65,10 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => navigateTo('guide', 'pension-services')}
+                  onClick={() => navigateTo('guide', 'old-age-pension')}
                   className="hover:text-[#183153] hover:underline transition-colors min-h-[32px] flex items-center"
                 >
-                  {t.guidePage.title} – Social Pension
+                  {t.guidePage.title} – Old Age Pension
                 </button>
               </li>
               <li>

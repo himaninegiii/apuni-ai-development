@@ -20,7 +20,11 @@ import {
   Globe,
   Scroll,
   MapPin,
-  Check
+  Check,
+  GraduationCap,
+  Building2,
+  Compass,
+  Award
 } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
@@ -44,6 +48,14 @@ export const HomePage: React.FC = () => {
         return <HandHeart className="w-5 h-5 text-[#D98B36]" />;
       case 'Scroll':
         return <Scroll className="w-5 h-5 text-[#183153]" />;
+      case 'GraduationCap':
+        return <GraduationCap className="w-5 h-5 text-[#183153]" />;
+      case 'Building2':
+        return <Building2 className="w-5 h-5 text-[#47745A]" />;
+      case 'Compass':
+        return <Compass className="w-5 h-5 text-[#D98B36]" />;
+      case 'Award':
+        return <Award className="w-5 h-5 text-[#D98B36]" />;
       default:
         return <FileText className="w-5 h-5 text-[#183153]" />;
     }

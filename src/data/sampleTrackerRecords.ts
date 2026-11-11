@@ -52,7 +52,7 @@ export const sampleTrackerRecords: Record<string, TrackerRecord> = {
   },
   'UK-SOC-2026-4402': {
     referenceNumber: 'UK-SOC-2026-4402',
-    serviceId: 'pension-services',
+    serviceId: 'old-age-pension',
     serviceTitle: {
       en: 'Old Age Pension Scheme (वृद्धावस्था पेंशन)',
       hi: 'वृद्धावस्था पेंशन (समाज कल्याण विभाग)'

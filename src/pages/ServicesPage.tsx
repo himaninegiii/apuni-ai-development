@@ -13,11 +13,17 @@ import {
   Clock,
   CheckSquare,
   BookOpen,
-  Scroll
+  Scroll,
+  GraduationCap,
+  Building2,
+  Compass,
+  Award,
+  ExternalLink,
+  AlertCircle
 } from 'lucide-react';
 
 export const ServicesPage: React.FC = () => {
-  const { t, language, navigateTo } = useApp();
+  const { t, language, navigateTo, triggerExternalRedirect } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -37,8 +43,64 @@ export const ServicesPage: React.FC = () => {
         return <HandHeart className="w-5 h-5 text-[#D98B36]" />;
       case 'Scroll':
         return <Scroll className="w-5 h-5 text-[#183153]" />;
+      case 'GraduationCap':
+        return <GraduationCap className="w-5 h-5 text-[#183153]" />;
+      case 'Building2':
+        return <Building2 className="w-5 h-5 text-[#47745A]" />;
+      case 'Compass':
+        return <Compass className="w-5 h-5 text-[#D98B36]" />;
+      case 'Award':
+        return <Award className="w-5 h-5 text-[#D98B36]" />;
       default:
         return <FileText className="w-5 h-5 text-[#183153]" />;
+    }
+  };
+
+  const getCategoryLabel = (cat: string): string => {
+    switch (cat) {
+      case 'revenue_identity':
+        return language === 'en' ? 'Revenue & Identity' : 'राजस्व एवं पहचान';
+      case 'civil_registration':
+        return language === 'en' ? 'Civil Registration' : 'नागरिक पंजीकरण';
+      case 'social_welfare':
+        return language === 'en' ? 'Social Welfare' : 'समाज कल्याण';
+      case 'student_services':
+        return language === 'en' ? 'Student Services' : 'छात्र सेवाएं';
+      case 'land_administration':
+        return language === 'en' ? 'Land & Local Admin' : 'भूलेख व स्थानीय प्रशासन';
+      default:
+        return cat.toUpperCase();
+    }
+  };
+
+  const getServiceTypeBadge = (type: string) => {
+    switch (type) {
+      case 'certificate':
+        return (
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200">
+            {t.servicesPage.typeCertificate || 'Certificate'}
+          </span>
+        );
+      case 'registration':
+        return (
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-purple-50 text-purple-800 border border-purple-200">
+            {t.servicesPage.typeRegistration || 'Registration'}
+          </span>
+        );
+      case 'scheme':
+        return (
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+            {t.servicesPage.typeScheme || 'Scheme'}
+          </span>
+        );
+      case 'guidance':
+        return (
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
+            {t.servicesPage.typeGuidance || 'Guidance'}
+          </span>
+        );
+      default:
+        return null;
     }
   };
 
@@ -46,7 +108,9 @@ export const ServicesPage: React.FC = () => {
     const matchesCategory =
       selectedCategory === 'all' || service.category === selectedCategory;
 
-    const q = searchQuery.toLowerCase();
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return matchesCategory;
+
     const titleMatch =
       service.title.en.toLowerCase().includes(q) ||
       service.title.hi.toLowerCase().includes(q);
@@ -57,9 +121,19 @@ export const ServicesPage: React.FC = () => {
       service.department.en.toLowerCase().includes(q) ||
       service.department.hi.toLowerCase().includes(q);
     const codeMatch = service.code.toLowerCase().includes(q);
+    const categoryMatch = getCategoryLabel(service.category).toLowerCase().includes(q);
 
-    return matchesCategory && (titleMatch || descMatch || deptMatch || codeMatch);
+    return matchesCategory && (titleMatch || descMatch || deptMatch || codeMatch || categoryMatch);
   });
+
+  const categoriesList = [
+    { id: 'all', label: t.servicesPage.allCategories },
+    { id: 'revenue_identity', label: t.servicesPage.revenueIdentity },
+    { id: 'civil_registration', label: t.servicesPage.civilRegistration },
+    { id: 'social_welfare', label: t.servicesPage.socialWelfare },
+    { id: 'student_services', label: t.servicesPage.studentServices },
+    { id: 'land_administration', label: t.servicesPage.landAdministration },
+  ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
@@ -67,7 +141,7 @@ export const ServicesPage: React.FC = () => {
       <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 sm:p-8 shadow-2xs space-y-4">
         <div>
           <span className="text-xs font-bold text-[#D98B36] uppercase tracking-wider">
-            {language === 'en' ? 'Citizen Service Directory' : 'अपुणी सरकार ई-सेवा संदर्शिका'}
+            {language === 'en' ? 'Citizen Service Directory · 18 Verified Services' : 'नागरिक सेवा संदर्शिका · 18 सेवाएं'}
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#183153] mt-1 break-words">
             {t.servicesPage.title}
@@ -78,7 +152,7 @@ export const ServicesPage: React.FC = () => {
         </div>
 
         {/* Search & Filter Controls */}
-        <div className="flex flex-col md:flex-row gap-3 sm:gap-4 pt-2">
+        <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 pt-2">
           {/* Search Bar */}
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-[#5A6A80] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -93,50 +167,20 @@ export const ServicesPage: React.FC = () => {
 
           {/* Interactive Category Filter Tabs: Horizontal scrollable strip on mobile */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 -mx-1 px-1 sm:mx-0 sm:px-0">
-            <button
-              type="button"
-              onClick={() => setSelectedCategory('all')}
-              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
-                selectedCategory === 'all'
-                  ? 'bg-[#183153] text-white'
-                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
-              }`}
-            >
-              {t.servicesPage.allCategories}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedCategory('revenue')}
-              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
-                selectedCategory === 'revenue'
-                  ? 'bg-[#183153] text-white'
-                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
-              }`}
-            >
-              {t.servicesPage.revenue}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedCategory('social_welfare')}
-              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
-                selectedCategory === 'social_welfare'
-                  ? 'bg-[#183153] text-white'
-                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
-              }`}
-            >
-              {t.servicesPage.socialWelfare}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedCategory('vital_records')}
-              className={`px-3.5 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
-                selectedCategory === 'vital_records'
-                  ? 'bg-[#183153] text-white'
-                  : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
-              }`}
-            >
-              {t.servicesPage.vitalRecords}
-            </button>
+            {categoriesList.map(cat => (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-3 py-2 min-h-[40px] text-xs font-semibold rounded-lg whitespace-nowrap transition-colors shrink-0 flex items-center justify-center ${
+                  selectedCategory === cat.id
+                    ? 'bg-[#183153] text-white shadow-2xs'
+                    : 'bg-[#F5F7FA] text-[#183153] hover:bg-slate-200 border border-[#E5E7EB]'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -148,39 +192,59 @@ export const ServicesPage: React.FC = () => {
             key={service.id}
             className="bg-white rounded-xl border border-[#E5E7EB] hover:border-[#183153]/40 shadow-2xs hover:shadow-xs transition-all p-5 sm:p-6 flex flex-col justify-between"
           >
-            <div className="space-y-4">
-              {/* Card Header: Icon & Code */}
-              <div className="flex items-center justify-between gap-3">
+            <div className="space-y-3.5">
+              {/* Card Header: Icon, Badges & Code */}
+              <div className="flex items-start justify-between gap-2.5">
                 <div className="w-10 h-10 rounded-lg bg-[#F5F7FA] flex items-center justify-center border border-[#E5E7EB] shrink-0">
                   {getServiceIcon(service.iconName)}
                 </div>
-                <div className="text-right">
-                  <span className="text-[11px] font-mono text-[#5A6A80] font-semibold bg-[#F5F7FA] px-2 py-0.5 rounded border border-[#E5E7EB]">
-                    {service.code}
-                  </span>
-                  <div className="text-[10px] text-[#5A6A80] mt-0.5 font-medium">
-                    {service.category.toUpperCase()}
+                <div className="flex flex-col items-end gap-1">
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                    {getServiceTypeBadge(service.serviceType)}
+                    <span className="text-[10px] font-mono text-[#5A6A80] font-semibold bg-[#F5F7FA] px-1.5 py-0.5 rounded border border-[#E5E7EB]">
+                      {service.code}
+                    </span>
                   </div>
+                  {service.verificationStatus === 'verified' ? (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#47745A] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      <ShieldCheck className="w-3 h-3 text-[#47745A]" />
+                      <span>{t.servicesPage.statusVerified || 'Verified'}</span>
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                      <AlertCircle className="w-3 h-3 text-amber-600" />
+                      <span>{t.servicesPage.statusPending || 'Pending Verification'}</span>
+                    </span>
+                  )}
                 </div>
               </div>
 
               {/* Title & Department */}
               <div>
-                <h2 className="text-base sm:text-lg font-bold text-[#183153] leading-snug break-words">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#D98B36]">
+                  {getCategoryLabel(service.category)}
+                </span>
+                <h2 className="text-base sm:text-lg font-bold text-[#183153] leading-snug break-words mt-0.5">
                   {service.title[language]}
                 </h2>
-                <div className="text-xs text-[#5A6A80] font-medium mt-0.5">
+                <div className="text-xs text-[#5A6A80] font-medium mt-0.5 line-clamp-1">
                   {service.department[language]}
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-xs text-[#5A6A80] leading-relaxed">
+              <p className="text-xs text-[#5A6A80] leading-relaxed line-clamp-2">
                 {service.shortDesc[language]}
               </p>
 
-              {/* RTS and SLA details */}
+              {/* Fee & RTS details */}
               <div className="pt-2 border-t border-[#E5E7EB] space-y-1.5 text-xs text-[#5A6A80]">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-[#5A6A80]">{t.common.officialFee}:</span>
+                  <span className="font-medium text-[#183153] truncate max-w-[190px] text-right">
+                    {service.officialFee[language]}
+                  </span>
+                </div>
                 <div className="flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-[#D98B36] shrink-0" />
                   <span>
@@ -194,11 +258,11 @@ export const ServicesPage: React.FC = () => {
             </div>
 
             {/* Action Buttons: Stacked on narrow mobile, 2 cols on tablet/desktop */}
-            <div className="pt-4 mt-4 border-t border-[#E5E7EB] grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div className="pt-4 mt-4 border-t border-[#E5E7EB] grid grid-cols-1 sm:grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => navigateTo('checklist', service.id)}
-                className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 min-h-[44px] rounded-lg text-xs font-semibold bg-[#F5F7FA] hover:bg-slate-200 text-[#183153] border border-[#E5E7EB] transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 py-2 px-3 min-h-[40px] rounded-lg text-xs font-semibold bg-[#F5F7FA] hover:bg-slate-200 text-[#183153] border border-[#E5E7EB] transition-colors"
               >
                 <CheckSquare className="w-3.5 h-3.5 text-[#D98B36]" />
                 <span>{t.servicesPage.openChecklist}</span>
@@ -207,7 +271,7 @@ export const ServicesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigateTo('guide', service.id)}
-                className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 min-h-[44px] rounded-lg text-xs font-semibold bg-[#183153] hover:bg-[#12253E] text-white transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 py-2 px-3 min-h-[40px] rounded-lg text-xs font-semibold bg-[#183153] hover:bg-[#12253E] text-white transition-colors"
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{t.servicesPage.viewDetails}</span>

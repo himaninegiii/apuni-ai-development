@@ -342,19 +342,23 @@ export function retrieveRelevantService(
   const serviceKeywords: Record<string, string[]> = {
     'income-certificate': [
       'income', 'aay', 'आय', 'salary', 'annual income', 'income certificate', 'aay praman',
-      'chhatravritti', 'scholarship', 'shulk mafi', 'fee concession', 'bpl', 'tehsildar income'
+      'shulk mafi', 'fee concession', 'bpl', 'tehsildar income'
     ],
     'caste-certificate': [
       'caste', 'jati', 'जाति', 'sc', 'st', 'obc', 'caste certificate', 'jati praman',
       'reservation', 'arakshan', 'sub-caste', 'non-creamy layer', 'ncl'
     ],
-    'parivar-register-copy': [
-      'parivar', 'kutumb', 'परिवार', 'कुटुंब', 'family register', 'nakal', 'kutumb register',
-      'parivar register', 'vdo', 'gram vikas adhikari', 'panchayat secretary', 'form 2', 'gram sabha'
-    ],
     'domicile-certificate': [
       'domicile', 'niwas', 'mool niwas', 'sthai niwas', 'स्थायी निवास', 'मूल निवास', 'residence certificate',
-      'uttarakhand domicile', '15 years', 'parmanent resident'
+      'uttarakhand domicile', '15 years', 'permanent resident'
+    ],
+    'ews-certificate': [
+      'ews', 'economically weaker', 'ईडब्ल्यूएस', 'आर्थिक रूप से कमजोर', 'ews certificate', '10 percent reservation',
+      'general category reservation', '8 lakh', 'ews praman'
+    ],
+    'character-certificate': [
+      'character', 'charitra', 'चरित्र', 'police verification', 'character certificate', 'charitra praman',
+      'police clearance', 'cctns', 'thana verification', 'job verification'
     ],
     'birth-certificate': [
       'birth', 'janam', 'जन्म', 'birth certificate', 'janam praman', 'crsorgi', 'newborn', '21 days'
@@ -362,9 +366,51 @@ export function retrieveRelevantService(
     'death-certificate': [
       'death', 'mrityu', 'मृत्यु', 'death certificate', 'mrityu praman', 'cremation ground', 'post-mortem'
     ],
-    'pension-services': [
-      'pension', 'पेंशन', 'old age', 'vridha', 'vridhavastha', 'widow', 'vidhwa', 'divyang', 'disability pension', 'ssp.uk.gov.in'
+    'marriage-registration': [
+      'marriage', 'vivah', 'विवाह', 'shaadi', 'shadi', 'marriage certificate', 'marriage registration',
+      'sub-registrar', 'sro', 'vivah panjikaran', 'witness'
     ],
+    'parivar-register-copy': [
+      'parivar', 'kutumb', 'परिवार', 'कुटुंब', 'family register', 'nakal', 'kutumb register',
+      'parivar register', 'vdo', 'gram vikas adhikari', 'panchayat secretary', 'form 2', 'gram sabha'
+    ],
+    'old-age-pension': [
+      'old age', 'vridha', 'vridhavastha', 'वृद्धावस्था', 'senior citizen pension', '60 years', 'old age pension',
+      'ssp.uk.gov.in', 'vridha pension', '1500 pension'
+    ],
+    'widow-pension': [
+      'widow', 'vidhwa', 'विधवा', 'destitute woman', 'widow pension', 'vidhwa pension', 'nirashrit mahila'
+    ],
+    'disability-pension': [
+      'disability pension', 'divyang pension', 'दिव्यांग पेंशन', 'viklang pension', 'handicapped pension', '40 percent'
+    ],
+    'disability-certificate': [
+      'disability certificate', 'udid', 'swavlamban', 'दिव्यांगता प्रमाण पत्र', 'divyang certificate',
+      'cmo medical board', 'udid card', 'disability card', 'medical board'
+    ],
+    'scholarship-guidance': [
+      'scholarship', 'chhatravritti', 'छात्रवृत्ति', 'nsp', 'national scholarship portal', 'post matric', 'pre matric',
+      'tuition fee waiver', 'scholarship application'
+    ],
+    'income-scholarship-guidance': [
+      'income for scholarship', 'scholarship income', 'छात्रवृत्ति आय', 'income certificate for scholarship',
+      'student income certificate', 'parent income for nsp'
+    ],
+    'land-records-khatauni': [
+      'khatauni', 'bhulekh', 'खतौनी', 'भूलेख', 'khasra', 'khatoni', 'land record', 'ror', 'record of rights',
+      'land ownership', 'devbhoomi bhulekh'
+    ],
+    'land-record-copy-guidance': [
+      'khatauni nakal', 'certified khatauni', 'land record copy', 'खतौनी नकल', 'stamped khatauni',
+      'tehsil khatauni', 'kisan credit card land', 'kcc'
+    ],
+    'panchayati-raj-services': [
+      'panchayat', 'panchayati raj', 'पंचायती राज', 'gram pradhan', 'panchayat noc', 'gram sabha',
+      'noc for electricity', 'village certificate'
+    ],
+    'pension-services': [
+      'pension', 'पेंशन', 'ssp.uk.gov.in'
+    ]
   };
 
   // Check specific fee inquiry intent

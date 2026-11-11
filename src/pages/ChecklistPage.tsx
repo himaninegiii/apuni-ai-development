@@ -98,9 +98,20 @@ export const ChecklistPage: React.FC = () => {
       <div className="bg-white rounded-xl border border-[#E5E7EB] p-5 sm:p-6 shadow-2xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <span className="text-xs text-[#5A6A80] font-medium break-words">
-              {currentService.title[language]} · {t.checklistPage.progressLabel}
-            </span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs text-[#5A6A80] font-medium break-words">
+                {currentService.title[language]} · {t.checklistPage.progressLabel}
+              </span>
+              {currentService.verificationStatus === 'verified' ? (
+                <span className="text-[10px] font-semibold text-[#47745A] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  {language === 'en' ? 'Verified Checklist' : 'सत्यापित चेकलिस्ट'}
+                </span>
+              ) : (
+                <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                  {language === 'en' ? 'Pending Local Resolution' : 'सत्यापन प्रक्रियाधीन'}
+                </span>
+              )}
+            </div>
             <div className="text-xl sm:text-2xl font-bold text-[#183153] mt-0.5 tabular-nums">
               {checkedCount} / {totalCount} ({percentComplete}%)
             </div>

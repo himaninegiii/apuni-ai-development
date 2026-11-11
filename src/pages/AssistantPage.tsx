@@ -189,11 +189,71 @@ export const AssistantPage: React.FC = () => {
         targetPage: 'guide',
         serviceId: 'domicile-certificate'
       });
-    } else if (lower.includes('pension') || lower.includes('पेंशन') || lower.includes('vridha') || lower.includes('widow')) {
+    } else if (lower.includes('widow') || lower.includes('विधवा') || lower.includes('vidhwa')) {
       actions.push({
-        label: language === 'hi' ? 'पेंशन दस्तावेज़' : 'Pension Checklist',
+        label: language === 'hi' ? 'विधवा पेंशन चेकलिस्ट' : 'Widow Pension Checklist',
         targetPage: 'checklist',
-        serviceId: 'pension-services'
+        serviceId: 'widow-pension'
+      });
+      actions.push({
+        label: language === 'hi' ? 'पेंशन आवेदन गाइड' : 'Pension Guide',
+        targetPage: 'guide',
+        serviceId: 'widow-pension'
+      });
+    } else if (lower.includes('pension') || lower.includes('पेंशन') || lower.includes('vridha') || lower.includes('वृद्धावस्था')) {
+      actions.push({
+        label: language === 'hi' ? 'वृद्धावस्था पेंशन चेकलिस्ट' : 'Old Age Pension Checklist',
+        targetPage: 'checklist',
+        serviceId: 'old-age-pension'
+      });
+      actions.push({
+        label: language === 'hi' ? 'पेंशन आवेदन गाइड' : 'Pension Guide',
+        targetPage: 'guide',
+        serviceId: 'old-age-pension'
+      });
+    } else if (lower.includes('khatauni') || lower.includes('bhulekh') || lower.includes('खतौनी') || lower.includes('भूलेख') || lower.includes('land')) {
+      actions.push({
+        label: language === 'hi' ? 'भूलेख खतौनी गाइड' : 'Khatauni ROR Guide',
+        targetPage: 'guide',
+        serviceId: 'land-records-khatauni'
+      });
+      actions.push({
+        label: language === 'hi' ? 'प्रमाणित नकल प्रक्रिया' : 'Certified Copy Checklist',
+        targetPage: 'checklist',
+        serviceId: 'land-record-copy-guidance'
+      });
+    } else if (lower.includes('marriage') || lower.includes('vivah') || lower.includes('विवाह') || lower.includes('shaadi')) {
+      actions.push({
+        label: language === 'hi' ? 'विवाह पंजीकरण गाइड' : 'Marriage Registration Guide',
+        targetPage: 'guide',
+        serviceId: 'marriage-registration'
+      });
+      actions.push({
+        label: language === 'hi' ? 'विवाह चेकलिस्ट' : 'Marriage Checklist',
+        targetPage: 'checklist',
+        serviceId: 'marriage-registration'
+      });
+    } else if (lower.includes('ews') || lower.includes('ईडब्ल्यूएस')) {
+      actions.push({
+        label: language === 'hi' ? 'ईडब्ल्यूएस चेकलिस्ट' : 'EWS Checklist',
+        targetPage: 'checklist',
+        serviceId: 'ews-certificate'
+      });
+      actions.push({
+        label: language === 'hi' ? 'ईडब्ल्यूएस गाइड' : 'EWS Guide',
+        targetPage: 'guide',
+        serviceId: 'ews-certificate'
+      });
+    } else if (lower.includes('scholarship') || lower.includes('छात्रवृत्ति') || lower.includes('chhatravritti')) {
+      actions.push({
+        label: language === 'hi' ? 'छात्रवृत्ति गाइड' : 'Scholarship Guide',
+        targetPage: 'guide',
+        serviceId: 'scholarship-guidance'
+      });
+      actions.push({
+        label: language === 'hi' ? 'छात्रवृत्ति आय प्रमाण पत्र' : 'Income for Scholarship',
+        targetPage: 'checklist',
+        serviceId: 'income-scholarship-guidance'
       });
     } else if (lower.includes('birth') || lower.includes('जन्म') || lower.includes('janam')) {
       actions.push({
@@ -324,14 +384,18 @@ export const AssistantPage: React.FC = () => {
     setMessages([initialGreeting]);
   };
 
-  // Specific queries tested and requested by the user
+  // Specific queries tested and requested by the user across categories
   const suggestedQuestions = [
     { label: 'Mujhe income certificate banana hai.', query: 'Mujhe income certificate banana hai.' },
     { label: 'Mere paas Parivar Register ki nakal nahi hai.', query: 'Mere paas Parivar Register ki nakal nahi hai.' },
     { label: 'जाति प्रमाण पत्र के लिए कौन-कौन से दस्तावेज चाहिए?', query: 'जाति प्रमाण पत्र के लिए कौन-कौन से दस्तावेज चाहिए?' },
     { label: 'Parivar Register copy ki fee aur processing time kitna hai?', query: 'Parivar Register copy ki fee aur processing time kitna hai?' },
     { label: 'How can I apply for a domicile certificate?', query: 'How can I apply for a domicile certificate?' },
-    { label: 'Mujhe scholarship ke liye income certificate chahiye.', query: 'Mujhe scholarship ke liye income certificate chahiye. Kya karna hoga?' }
+    { label: 'Bhulekh portal par Khatauni kaise dekhein?', query: 'Bhulekh portal par Khatauni kaise dekhein?' },
+    { label: 'वृद्धावस्था पेंशन (Old Age Pension) की पात्रता और राशि क्या है?', query: 'वृद्धावस्था पेंशन (Old Age Pension) की पात्रता और राशि क्या है?' },
+    { label: 'EWS certificate ke liye kya eligibility aur rules hain?', query: 'EWS certificate ke liye kya eligibility aur rules hain?' },
+    { label: 'Marriage registration ke liye kya Sub-Registrar ke samne jana zaroori hai?', query: 'Marriage registration ke liye kya Sub-Registrar ke samne jana zaroori hai?' },
+    { label: 'Scholarship ke liye income certificate kaise banega?', query: 'Mujhe scholarship ke liye income certificate chahiye. Kya karna hoga?' }
   ];
 
   // Helper to format AI response text (handles bold, bullets, paragraphs cleanly)
